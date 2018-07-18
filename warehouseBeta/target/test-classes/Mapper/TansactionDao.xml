@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Configuration 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.warehouseBeta.dao.TransactionDao">
+
+	<!-- 获取所有的交易记录的信息 -->
+	<select id="getAllTransactionInformation"
+	resultType="com.warehouseBeta.table.Transaction"> 
+		select * from transaction
+	</select>
+	
+	<!-- 更新交易记录的信息 -->
+	<select id="updateTransactionInformation" 
+	parameterType="com.warehouseBeta.table.Transaction">
+		update transaction 
+		set name = #{name},
+			money = #{money},
+			count = #{count},
+			date = #{date},
+			operator = #{operator}
+		where id like #{id}
+	</select>
+	
+	<!-- 删除交易记录的信息 -->
+	<select id="deleteTransactionInformation" 
+	parameterType="int">
+		delete from transaction where id like #{id}
+		</select>
+	
+	<!-- 新增交易记录 -->
+	<select id="insertTransactionInformation" 
+	parameterType="com.warehouseBeta.table.Transaction">
+		insert into 
+		transaction(	
+						id,
+						name,
+						money,
+						date,
+						operator,
+						count)
+			
+		values( 
+				#{id},
+				#{name},
+				#{money},				
+				#{date},
+				#{operator},
+				#{count})
+	</select>	
+	
+	<!-- 获取交易记录信息 -->
+	<select id="getTransactionInformation"
+	parameterType="int" resultType="com.warehouseBeta.table.Transaction">
+		select 
+			name,
+			money,
+			date,
+			operator,
+			count
+		from 
+			transaction
+		where 
+			id like #{id}
+	</select>
+	
+	<!-- 
+		新增交易信息
+		只新增交易信心的ID和名称字段，其他字段信息都是未交易
+	 -->
+	<!--  <select id="insertTransactionTwo" -->
+	 
+	 
+</mapper>

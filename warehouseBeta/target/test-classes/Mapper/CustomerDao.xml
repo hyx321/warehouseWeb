@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Configuration 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.warehouseBeta.dao.CustomerDao">
+
+	<!-- 获取所有的客户的信息 -->
+	<select id="getAllCustomerInformation"
+	resultType="com.warehouseBeta.table.Customer"> 
+		select * from customer
+	</select>
+	
+	<!-- 更新客户的信息 -->
+	<select id="updateCustomerInformation" 
+	parameterType="com.warehouseBeta.table.Customer">
+		update customer 
+		set name = #{name},
+			telephone = #{telephone},
+			bank = #{bank},
+			address = #{address}
+		where id like #{id}
+	</select>
+	
+	<!-- 删除客户的信息 -->
+	<select id="deleteCustomerInformation" 
+	parameterType="int">
+		delete from customer where id like #{id}
+		</select>
+	
+	<!-- 新增客户 -->
+	<select id="insertCustomerInformation" 
+	parameterType="com.warehouseBeta.table.Customer">
+		insert into 
+		customer(	name,
+					bank,
+					address,
+					telephone)
+			
+		values( #{name},
+				#{bank},
+				#{address},
+				#{telephone})
+	</select>	
+	
+	<!-- 获取客户信息 -->
+	<select id="getCustomerInformation"
+	parameterType="int" resultType="com.warehouseBeta.table.Customer">
+		select 
+			name,
+			bank,
+			address,
+			telephone
+		from 
+			customer
+		where 
+			id like #{id}
+	</select>
+	
+	<!-- 获取个人交易记录 -->
+	<select id="getSaleInformation" 
+		parameterType="java.lang.String" resultType="com.warehouseBeta.table.Sales">
+		select 
+			name,
+			date,
+			operator,
+			money
+		from 
+			sales
+		where 
+			purchaser like #{purchaser}
+	</select>
+	
+	<!-- 获取名字 -->
+	<select id="getAllCustomerName"
+		resultType="com.warehouseBeta.table.Customer">
+		select 
+			name
+		from 
+			customer
+	</select>
+</mapper>

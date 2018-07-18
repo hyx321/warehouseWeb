@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Configuration 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.warehouseBeta.dao.StaffDao">
+
+	<!-- 获取所有的员工的信息 -->
+	<select id="getAllStaffInformation"
+	resultType="com.warehouseBeta.table.Staff"> 
+		select * 
+		from staff
+	</select>
+	
+	<!-- 获取账号密码 -->
+	<select id="checkStaffInformation"
+	resultType="java.lang.String" parameterType="java.lang.String">
+		select password 
+		from staff 
+		where name like #{name}
+	</select>
+	
+	<!-- 更新员工的信息 -->
+	<select id="updateStaffInformation" 
+	parameterType="com.warehouseBeta.table.Staff">
+		update staff 
+		set name = #{name},
+			telephone = #{telephone},
+			password = #{password},
+			address = #{address}
+		where id like #{id}
+	</select>
+	
+	<!-- 删除员工的信息 -->
+	<select id="deleteStaffInformation" 
+	parameterType="int">
+		delete 
+		from staff 
+		where id like #{id}
+		</select>
+	
+	<!-- 新增员工 -->
+	<select id="insertStaffInformation" 
+	parameterType="com.warehouseBeta.table.Staff" >
+		insert into 
+		staff(  name,
+				password,
+				address,
+				telephone)
+			
+		values( #{name},
+				#{password},
+				#{address},
+				#{telephone})		
+	</select>	
+	
+	<!-- 获取员工信息 -->
+	<select id="getStaffInformation"
+	parameterType="int" resultType="com.warehouseBeta.table.Staff">
+		select 
+			name,
+			password,
+			address,
+			telephone
+		from 
+			staff
+		where 
+			id like #{id}
+	</select>
+	
+	<!-- 获取所有员工的名字 -->
+	<select id="getAllStaffName"
+	resultType="com.warehouseBeta.table.Staff">
+		select 
+			name
+		from 
+			staff
+	
+	</select>
+</mapper>

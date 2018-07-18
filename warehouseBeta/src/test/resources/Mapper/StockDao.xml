@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Configuration 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.warehouseBeta.dao.StockDao">
+
+	<!-- 获取所有的仓库的信息 -->
+	<select id="getAllStockInformation"
+	resultType="com.warehouseBeta.table.Stock"> 
+		select * from stock
+	</select>
+	
+	<!-- 更新仓库的信息 -->
+	<select id="updateStockInformation" 
+	parameterType="com.warehouseBeta.table.Stock">
+		update stock 
+		set name = #{name},
+			origin = #{origin},		
+			supplier = #{supplier},
+			count = #{count},
+			date = #{date},
+			operator = #{operator}
+		where id like #{id}
+	</select>
+	
+	<!-- 删除仓库的信息 -->
+	<select id="deleteStockInformation" 
+	parameterType="int">
+		delete from stock where id like #{id}
+		</select>
+	
+	<!-- 新增仓库 -->
+	<select id="insertStockInformation" 
+	parameterType="com.warehouseBeta.table.Stock">
+		insert into 
+		stock(	name,
+				origin,
+				supplier,
+				date,
+				operator,
+				count)
+			
+		values( #{name},
+				#{origin},
+				#{supplier},
+				#{date},
+				#{operator},
+				#{count})
+	</select>	
+	
+	<!-- 获取仓库信息 -->
+	<select id="getStockInformation"
+	parameterType="int" resultType="com.warehouseBeta.table.Stock">
+		select 
+			name,
+			origin,
+			supplier,
+			date,
+			operator,
+			count,
+			remark
+		from 
+			stock
+		where 
+			id like #{id}
+	</select>
+	
+	<!-- 获取商品信息 -->
+	<select id="getCommodity"
+	parameterType="int" resultType="com.warehouseBeta.table.Commodity">
+		select 
+			name,origin,supplier,remark
+		from 
+			commodity
+		where 
+			id like #{id}
+	</select>
+	
+	<!-- 获取最大的ID，即最新插入的ID -->
+	<select id="getID" resultType="int">
+		select max(id) from stock
+	</select>
+	
+	<!-- 新增商品信息 -->
+	<select id="insertCommodity" parameterType="com.warehouseBeta.table.Commodity">
+		insert into commodity
+			(	id,
+				name,
+				origin,
+				supplier,
+				remark)
+			
+		values( 
+				#{id},
+				#{name},
+				#{origin},
+				#{supplier},
+				#{remark})
+	</select>
+	
+	<!-- 获取商品的数量 -->
+	<select id="getCommodityCount" parameterType="int" resultType="int">
+		select 
+			count
+		from 
+			stock
+		where 
+			id like #{id}
+	</select>
+	
+	<!-- 获取商品的数量 -->
+	<select id="updateCommodityCount" parameterType="com.warehouseBeta.table.Stock">
+		update 
+			stock 
+		set 
+			count = #{count}
+		where 
+			id like #{id}
+	</select>
+</mapper>
